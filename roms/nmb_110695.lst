@@ -1,0 +1,1849 @@
+				;
+				;	Disassembled by:
+				;		DASMx object code disassembler
+				;		(c) Copyright 1996-2003   Conquest Consultants
+				;		Version 1.40 (Oct 18 2003)
+				;
+				;	File:		nmb_110695.bin
+				;
+				;	Size:		2048 bytes
+				;	Checksum:	63DE
+				;	CRC-32:		BC86E349
+				;
+				;	Date:		Sun May 31 08:52:06 2020
+				;
+				;	CPU:		Intel 8048 (MCS-48 family)
+				;
+				;
+				;
+					org	00000H
+				;
+0000 : 04 09		"  "		jmp	RSTINT
+				;
+0002 : 00		" "		nop
+0003 : A4 01		"  "		jmp	EXTINT
+				;
+0005 : 00		" "		nop
+0006 : 00		" "		nop
+0007 : 84 59		" Y"		jmp	TIMINT
+0009				RSTINT:
+0009 : 04 D3		"  "		jmp	RSTINT1
+				;
+000B : EA 23		" #"		djnz	r2,L0023
+000D : BF 3A		" :"		mov	r7,#03AH
+000F : B8 20		"  "		mov	r0,#020H
+0011 : BA 60		" `"		mov	r2,#060H
+0013				L0013:
+0013 : B0 00		"  "		mov	@r0,#000H
+0015 : 18		" "		inc	r0
+0016 : EA 13		"  "		djnz	r2,L0013
+0018 : 85		" "		clr	f0
+0019 : 95		" "		cpl	f0
+001A : B8 80		"  "		mov	r0,#080H
+001C : B9 60		" `"		mov	r1,#060H
+001E : BA 20		"  "		mov	r2,#020H
+0020				L0020:
+0020 : F8		" "		mov	a,r0
+0021 : E3		" "		movp3	a,@a
+0022 : A1		" "		mov	@r1,a
+0023				L0023:
+0023 : 18		" "		inc	r0
+0024 : 19		" "		inc	r1
+0025 : EA 20		"  "		djnz	r2,L0020
+0027 : 23 FF		"# "		mov	a,#0FFH
+0029 : 39		"9"		outl	p1,a
+002A : 23 BF		"# "		mov	a,#0BFH
+002C : 3A		":"		outl	p2,a
+002D : 23 89		"# "		mov	a,#089H
+002F : 62		"b"		mov	t,a
+0030 : 55		"U"		strt	t
+0031 : 15		" "		dis	i
+0032 : 25		"%"		en	tcnti
+0033				L0033:
+0033 : BA 11		"  "		mov	r2,#011H
+0035 : B8 2B		" +"		mov	r0,#02BH
+0037				L0037:
+0037 : B0 00		"  "		mov	@r0,#000H
+0039 : 18		" "		inc	r0
+003A : EA 37		" 7"		djnz	r2,L0037
+003C : B8 4D		" M"		mov	r0,#04DH
+003E : BA 11		"  "		mov	r2,#011H
+0040				L0040:
+0040 : B0 FF		"  "		mov	@r0,#0FFH
+0042 : 18		" "		inc	r0
+0043 : EA 40		" @"		djnz	r2,L0040
+0045 : BA 03		"  "		mov	r2,#003H
+0047				L0047:
+0047 : B8 2B		" +"		mov	r0,#02BH
+0049 : B9 4D		" M"		mov	r1,#04DH
+004B : BB 10		"  "		mov	r3,#010H
+004D : BC F0		"  "		mov	r4,#0F0H
+004F : BE 0F		"  "		mov	r6,#00FH
+0051				L0051:
+0051 : FB		" "		mov	a,r3
+0052 : 03 F9		"  "		add	a,#0F9H
+0054 : E6 61		" a"		jnc	L0061
+0056 : FC		" "		mov	a,r4
+0057 : 39		"9"		outl	p1,a
+0058 : 1C		" "		inc	r4
+0059 : 00		" "		nop
+005A : 00		" "		nop
+005B : 08		" "		ins	a,bus
+005C : 04 67		" g"		jmp	L0067
+				;
+005E : FC		" "		mov	a,r4
+005F : 39		"9"		outl	p1,a
+				;
+0060 : EB		" "		db	0EBH
+				;
+0061				L0061:
+0061 : FE		" "		mov	a,r6
+0062 : 39		"9"		outl	p1,a
+0063 : 03 10		"  "		add	a,#010H
+0065 : AE		" "		mov	r6,a
+0066 : 08		" "		ins	a,bus
+0067				L0067:
+0067 : 37		"7"		cpl	a
+0068 : AD		" "		mov	r5,a
+0069 : 40		"@"		orl	a,@r0
+006A : A0		" "		mov	@r0,a
+006B : FD		" "		mov	a,r5
+006C : 51		"Q"		anl	a,@r1
+006D : A1		" "		mov	@r1,a
+006E : 18		" "		inc	r0
+006F : 19		" "		inc	r1
+0070 : EB 51		" Q"		djnz	r3,L0051
+0072				GETSHIFTS:
+0072 : 0A		" "		in	a,p2
+0073 : 37		"7"		cpl	a
+0074 : 53 30		"S0"		anl	a,#030H
+0076 : E7		" "		rl	a
+0077 : 26 8B		"& "		jnt0	NOTT0
+0079				L0079:
+0079 : 46 90		"F "		jnt1	NOTT1
+007B				L007B:
+007B : AD		" "		mov	r5,a
+007C : 40		"@"		orl	a,@r0
+007D : A0		" "		mov	@r0,a
+007E : FD		" "		mov	a,r5
+007F : 51		"Q"		anl	a,@r1
+0080 : A1		" "		mov	@r1,a
+0081 : BF F9		"  "		mov	r7,#0F9H
+0083				L0083:
+0083 : 00		" "		nop
+0084 : EF 83		"  "		djnz	r7,L0083
+0086 : EA 47		" G"		djnz	r2,L0047
+0088 : 04 94		"  "		jmp	L0094
+				;
+008A : BA		" "		db	0BAH
+				;
+008B				NOTT0:
+008B : 43 10		"C "		orl	a,#010H
+008D : 04 79		" y"		jmp	L0079
+				;
+008F : B9		" "		db	0B9H
+				;
+0090				NOTT1:
+0090 : 43 80		"C "		orl	a,#080H
+0092 : 04 7B		" {"		jmp	L007B
+				;
+0094				L0094:
+0094 : BA 11		"  "		mov	r2,#011H
+0096 : B8 2B		" +"		mov	r0,#02BH
+0098 : B9 3C		" <"		mov	r1,#03CH
+009A				L009A:
+009A : F0		" "		mov	a,@r0
+009B : 51		"Q"		anl	a,@r1
+009C : A0		" "		mov	@r0,a
+009D : 18		" "		inc	r0
+009E : 19		" "		inc	r1
+009F : EA 9A		"  "		djnz	r2,L009A
+00A1 : BA 11		"  "		mov	r2,#011H
+00A3 : B8 2B		" +"		mov	r0,#02BH
+00A5 : B9 4D		" M"		mov	r1,#04DH
+00A7				L00A7:
+00A7 : F0		" "		mov	a,@r0
+00A8 : 41		"A"		orl	a,@r1
+00A9 : A0		" "		mov	@r0,a
+00AA : 18		" "		inc	r0
+00AB : 19		" "		inc	r1
+00AC : EA A7		"  "		djnz	r2,L00A7
+00AE : B8 2B		" +"		mov	r0,#02BH
+00B0 : BA 0F		"  "		mov	r2,#00FH
+00B2 : BD 00		"  "		mov	r5,#000H
+00B4				L00B4:
+00B4 : A5		" "		clr	f1
+00B5 : F0		" "		mov	a,@r0
+00B6 : 4D		"M"		orl	a,r5
+00B7 : AD		" "		mov	r5,a
+00B8				L00B8:
+00B8 : 18		" "		inc	r0
+00B9 : 50		"P"		anl	a,@r0
+00BA : BB 08		"  "		mov	r3,#008H
+00BC				L00BC:
+00BC : 67		"g"		rrc	a
+00BD : F6 C6		"  "		jc	L00C6
+00BF				L00BF:
+00BF : EB BC		"  "		djnz	r3,L00BC
+00C1 : EA B4		"  "		djnz	r2,L00B4
+00C3 : 24 A0		"$ "		jmp	L01A0
+				;
+00C5 : BF 76		" v"		mov	r7,#076H
+00C7 : CC		" "		dec	r4
+00C8 : B5		" "		cpl	f1
+00C9 : 04 BF		"  "		jmp	L00BF
+00CB : 04 B8		"  "		jmp	L00B8
+				;
+00CD : 29		")"		xch	a,r1
+00CE : B0 00		"  "		mov	@r0,#000H
+00D0 : 04 33		" 3"		jmp	L0033
+				;
+00D2 : EB		" "		db	0EBH
+				;
+00D3				RSTINT1:
+00D3 : 23 BF		"# "		mov	a,#0BFH
+00D5 : 3A		":"		outl	p2,a
+00D6 : BA 00		"  "		mov	r2,#000H
+00D8 : BB 00		"  "		mov	r3,#000H
+00DA				L00DA:
+00DA : FB		" "		mov	a,r3
+00DB : A3		" "		movp	a,@a
+00DC : DA		" "		xrl	a,r2
+00DD : AA		" "		mov	r2,a
+00DE : EB DA		"  "		djnz	r3,L00DA
+00E0 : 24 D3		"$ "		jmp	L01D3
+				;
+00E2 : FF		" "		mov	a,r7
+00E3 : FF		" "		mov	a,r7
+00E4 : FF		" "		mov	a,r7
+00E5 : FF		" "		mov	a,r7
+00E6 : FF		" "		mov	a,r7
+00E7 : FF		" "		mov	a,r7
+00E8 : FF		" "		mov	a,r7
+00E9 : FF		" "		mov	a,r7
+00EA : FF		" "		mov	a,r7
+00EB : FF		" "		mov	a,r7
+00EC : FF		" "		mov	a,r7
+00ED : FF		" "		mov	a,r7
+00EE : FF		" "		mov	a,r7
+00EF : FF		" "		mov	a,r7
+00F0 : FF		" "		mov	a,r7
+00F1 : FF		" "		mov	a,r7
+00F2 : FF		" "		mov	a,r7
+00F3 : FF		" "		mov	a,r7
+00F4 : FF		" "		mov	a,r7
+00F5 : FF		" "		mov	a,r7
+00F6 : FF		" "		mov	a,r7
+00F7 : FF		" "		mov	a,r7
+00F8 : FF		" "		mov	a,r7
+00F9 : FF		" "		mov	a,r7
+00FA : FF		" "		mov	a,r7
+00FB : FF		" "		mov	a,r7
+00FC : FF		" "		mov	a,r7
+00FD : FF		" "		mov	a,r7
+00FE : FF		" "		mov	a,r7
+00FF : FF		" "		mov	a,r7
+0100 : B8 21		" !"		mov	r0,#021H
+0102 : 68		"h"		add	a,r0
+0103 : 53 B8		"S "		anl	a,#0B8H
+0105 : 20		" "		xch	a,@r0
+0106 : F0		" "		mov	a,@r0
+0107 : AC		" "		mov	r4,a
+0108 : B8 21		" !"		mov	r0,#021H
+010A : F0		" "		mov	a,@r0
+010B : AD		" "		mov	r5,a
+010C : B8 29		" )"		mov	r0,#029H
+010E : B0 00		"  "		mov	@r0,#000H
+0110 : BB 10		"  "		mov	r3,#010H
+0112 : B8 2B		" +"		mov	r0,#02BH
+0114				L0114:
+0114 : F0		" "		mov	a,@r0
+0115 : BA 08		"  "		mov	r2,#008H
+0117				L0117:
+0117 : F7		" "		rlc	a
+0118 : F6 8B		"  "		jc	L018B
+011A				L011A:
+011A : EA 17		"  "		djnz	r2,L0117
+011C : 18		" "		inc	r0
+011D : EB 14		"  "		djnz	r3,L0114
+011F : B8 2A		" *"		mov	r0,#02AH
+0121 : F0		" "		mov	a,@r0
+0122 : C6 36		" 6"		jz	L0136
+0124 : B8 23		" #"		mov	r0,#023H
+0126 : B0 32		" 2"		mov	@r0,#032H
+0128 : B8 24		" $"		mov	r0,#024H
+012A : B0 00		"  "		mov	@r0,#000H
+012C				L012C:
+012C : 23 89		"# "		mov	a,#089H
+012E : 62		"b"		mov	t,a
+012F : 55		"U"		strt	t
+0130 : B8 2A		" *"		mov	r0,#02AH
+0132 : F0		" "		mov	a,@r0
+0133 : B8 29		" )"		mov	r0,#029H
+0135 : A0		" "		mov	@r0,a
+0136				L0136:
+0136 : B8 20		"  "		mov	r0,#020H
+0138 : FC		" "		mov	a,r4
+0139 : A0		" "		mov	@r0,a
+013A : B8 21		" !"		mov	r0,#021H
+013C : FD		" "		mov	a,r5
+013D : A0		" "		mov	@r0,a
+013E : B8 22		" ""		mov	r0,#022H
+0140 : FE		" "		mov	a,r6
+0141 : A0		" "		mov	@r0,a
+0142 : 24 6B		"$k"		jmp	L016B
+				;
+0144 : 17		" "		inc	a
+0145				L0145:
+0145 : B9 20		"  "		mov	r1,#020H
+0147 : B8 3C		" <"		mov	r0,#03CH
+0149 : F1		" "		mov	a,@r1
+014A : 53 F0		"S "		anl	a,#0F0H
+014C : 47		"G"		swap	a
+014D : 68		"h"		add	a,r0
+014E : A8		" "		mov	r0,a
+014F : F1		" "		mov	a,@r1
+0150 : 53 0F		"S "		anl	a,#00FH
+0152 : 17		" "		inc	a
+0153 : AF		" "		mov	r7,a
+0154 : F0		" "		mov	a,@r0
+0155				L0155:
+0155 : 67		"g"		rrc	a
+0156 : EF 55		" U"		djnz	r7,L0155
+0158 : E6 67		" g"		jnc	L0167
+015A : B8 4C		" L"		mov	r0,#04CH
+015C : F0		" "		mov	a,@r0
+015D : B8 22		" ""		mov	r0,#022H
+015F : D0		" "		xrl	a,@r0
+0160 : 53 FE		"S "		anl	a,#0FEH
+0162 : 96 71		" q"		jnz	L0171
+0164 : 24 6B		"$k"		jmp	L016B
+				;
+0166 : 17		" "		inc	a
+0167				L0167:
+0167 : B8 29		" )"		mov	r0,#029H
+0169 : B0 00		"  "		mov	@r0,#000H
+016B				L016B:
+016B : 86 6F		" o"		jni	L016F
+016D : 04 33		" 3"		jmp	L0033
+016F				L016F:
+016F : C4 00		"  "		jmp	L0600
+				;
+0171				L0171:
+0171 : B8 20		"  "		mov	r0,#020H
+0173 : F0		" "		mov	a,@r0
+0174 : AC		" "		mov	r4,a
+0175 : 54 82		"T "		call	L0282
+0177 : B9 2A		" *"		mov	r1,#02AH
+0179 : F1		" "		mov	a,@r1
+017A : C6 80		"  "		jz	L0180
+017C : FE		" "		mov	a,r6
+017D : 43 01		"C "		orl	a,#001H
+017F : AE		" "		mov	r6,a
+0180				L0180:
+0180 : B8 23		" #"		mov	r0,#023H
+0182 : B0 0A		"  "		mov	@r0,#00AH
+0184 : B8 24		" $"		mov	r0,#024H
+0186 : B0 00		"  "		mov	@r0,#000H
+0188 : 24 2C		"$,"		jmp	L012C
+				;
+018A : EA B9		"  "		djnz	r2,L01B9
+018C : 5E		"^"		anl	a,r6
+018D : A1		" "		mov	@r1,a
+018E : 23 10		"# "		mov	a,#010H
+0190 : 37		"7"		cpl	a
+0191 : 6B		"k"		add	a,r3
+0192 : 37		"7"		cpl	a
+0193 : 47		"G"		swap	a
+0194 : 4A		"J"		orl	a,r2
+0195 : 07		" "		dec	a
+0196 : AC		" "		mov	r4,a
+0197 : 54 82		"T "		call	L0282
+0199 : 94 01		"  "		call	L0401
+019B : B9 5E		" ^"		mov	r1,#05EH
+019D : F1		" "		mov	a,@r1
+019E : 24 1A		"$ "		jmp	L011A
+				;
+01A0				L01A0:
+01A0 : B8 2B		" +"		mov	r0,#02BH
+01A2 : B9 A0		"  "		mov	r1,#0A0H
+01A4				L01A4:
+01A4 : F9		" "		mov	a,r1
+01A5 : E3		" "		movp3	a,@a
+01A6 : F2 B4		"  "		jb7	L01B4
+01A8 : 68		"h"		add	a,r0
+01A9 : A8		" "		mov	r0,a
+01AA : 19		" "		inc	r1
+01AB : F9		" "		mov	a,r1
+01AC : E3		" "		movp3	a,@a
+01AD : 50		"P"		anl	a,@r0
+01AE : A0		" "		mov	@r0,a
+01AF : B8 2B		" +"		mov	r0,#02BH
+01B1 : 19		" "		inc	r1
+01B2 : 24 A4		"$ "		jmp	L01A4
+				;
+01B4				L01B4:
+01B4 : BA 11		"  "		mov	r2,#011H
+01B6 : B8 2B		" +"		mov	r0,#02BH
+01B8 : B9 3C		" <"		mov	r1,#03CH
+01BA				L01BA:
+01BA : F0		" "		mov	a,@r0
+01BB : D1		" "		xrl	a,@r1
+01BC : 50		"P"		anl	a,@r0
+01BD : 20		" "		xch	a,@r0
+01BE : A1		" "		mov	@r1,a
+01BF : 18		" "		inc	r0
+01C0 : 19		" "		inc	r1
+01C1 : EA BA		"  "		djnz	r2,L01BA
+01C3 : B8 2B		" +"		mov	r0,#02BH
+01C5 : BA 0F		"  "		mov	r2,#00FH
+01C7 : F0		" "		mov	a,@r0
+01C8				L01C8:
+01C8 : 18		" "		inc	r0
+01C9 : 40		"@"		orl	a,@r0
+01CA : EA C8		"  "		djnz	r2,L01C8
+01CC : C6 D1		"  "		jz	L01D1
+01CE : 24 04		"$ "		jmp	L0104
+				;
+01D0 : 00		" "		nop
+01D1				L01D1:
+01D1 : 24 45		"$E"		jmp	L0145
+				;
+01D3				L01D3:
+01D3 : FB		" "		mov	a,r3
+01D4 : A3		" "		movp	a,@a
+01D5 : DA		" "		xrl	a,r2
+01D6 : AA		" "		mov	r2,a
+01D7 : EB D3		"  "		djnz	r3,L01D3
+01D9				L01D9:
+01D9 : FB		" "		mov	a,r3
+01DA : E3		" "		movp3	a,@a
+01DB : DA		" "		xrl	a,r2
+01DC : AA		" "		mov	r2,a
+01DD : EB D9		"  "		djnz	r3,L01D9
+01DF : 44 F1		"D "		jmp	L02F1
+				;
+01E1 : FF		" "		mov	a,r7
+01E2 : FF		" "		mov	a,r7
+01E3 : FF		" "		mov	a,r7
+01E4 : FF		" "		mov	a,r7
+01E5 : FF		" "		mov	a,r7
+01E6 : FF		" "		mov	a,r7
+01E7 : FF		" "		mov	a,r7
+01E8 : FF		" "		mov	a,r7
+01E9 : FF		" "		mov	a,r7
+01EA : FF		" "		mov	a,r7
+01EB : FF		" "		mov	a,r7
+01EC : FF		" "		mov	a,r7
+01ED : FF		" "		mov	a,r7
+01EE : FF		" "		mov	a,r7
+01EF : FF		" "		mov	a,r7
+01F0 : FF		" "		mov	a,r7
+01F1 : FF		" "		mov	a,r7
+01F2 : FF		" "		mov	a,r7
+01F3 : FF		" "		mov	a,r7
+01F4 : FF		" "		mov	a,r7
+01F5 : FF		" "		mov	a,r7
+01F6 : FF		" "		mov	a,r7
+01F7 : FF		" "		mov	a,r7
+01F8 : FF		" "		mov	a,r7
+01F9 : FF		" "		mov	a,r7
+01FA : FF		" "		mov	a,r7
+01FB : FF		" "		mov	a,r7
+01FC : FF		" "		mov	a,r7
+01FD : FF		" "		mov	a,r7
+01FE : FF		" "		mov	a,r7
+01FF : FF		" "		mov	a,r7
+				;
+0200				SHIFTED:
+0200 : E0 F1 A1 A2	"    "		db	"\xE0\xF1\xA1\xA2\x81ZQ\xC1\xE2@AXW\xC3\xC5R D^G\xC6TV\xE7\xE1\xC0!SCE\xC2\xE3\xE4#F$\xE5%\xE6\xC4\xC7YB&H\xE8*J\x86P\xCB>\xEC\xCA\xEB]\xC8UNK(\xE9IM"\x82+\xED~\xCC\x83?<O\xC9:)\xEA_L\xA0\xCD\x87\xEE|}\xCE\xEF\xA5\xF9\xB7\xA6\xB1\xA9\xB2\x00\xCF\xA3\x7F\x00\xFC\x80\x85\x84\xA8\xB9\xB3\xAA\xAE\xAC\xFE\xF5\xA4\xF7\xB0\xB4\xA7\xB5\xFA\xB8\xB6\x00\xAD\xF3\x00\x00\x00\x00"
+       81 5A 51 C1	" ZQ "
+       E2 40 41 58	" @AX"
+       57 C3 C5 52	"W  R"
+       20 44 5E 47	" D^G"
+       C6 54 56 E7	" TV "
+       E1 C0 21 53	"  !S"
+       43 45 C2 E3	"CE  "
+       E4 23 46 24	" #F$"
+       E5 25 E6 C4	" %  "
+       C7 59 42 26	" YB&"
+       48 E8 2A 4A	"H *J"
+       86 50 CB 3E	" P >"
+       EC CA EB 5D	"   ]"
+       C8 55 4E 4B	" UNK"
+       28 E9 49 4D	"( IM"
+       22 82 2B ED	"" + "
+       7E CC 83 3F	"~  ?"
+       3C 4F C9 3A	"<O :"
+       29 EA 5F 4C	") _L"
+       A0 CD 87 EE	"    "
+       7C 7D CE EF	"|}  "
+       A5 F9 B7 A6	"    "
+       B1 A9 B2 00	"    "
+       CF A3 7F 00	"    "
+       FC 80 85 84	"    "
+       A8 B9 B3 AA	"    "
+       AE AC FE F5	"    "
+       A4 F7 B0 B4	"    "
+       A7 B5 FA B8	"    "
+       B6 00 AD F3	"    "
+       00 00 00 00	"    "
+				;
+0280 : 00		" "		nop
+0281 : 00		" "		nop
+0282				L0282:
+0282 : B9 4C		" L"		mov	r1,#04CH
+0284 : F1		" "		mov	a,@r1
+0285 : AE		" "		mov	r6,a
+0286 : A5		" "		clr	f1
+0287 : B2 8A		"  "		jb5	L028A
+0289 : B5		" "		cpl	f1
+028A				L028A:
+028A : B9 00		"  "		mov	r1,#000H
+028C : FC		" "		mov	a,r4
+028D : 47		"G"		swap	a
+028E : 53 0F		"S "		anl	a,#00FH
+0290 : C6 9A		"  "		jz	GETMAPPING
+0292 : AF		" "		mov	r7,a
+0293 : 23 00		"# "		mov	a,#000H
+0295				L0295:
+0295 : 03 08		"  "		add	a,#008H
+0297 : EF 95		"  "		djnz	r7,L0295
+0299 : A9		" "		mov	r1,a
+029A				GETMAPPING:
+029A : FC		" "		mov	a,r4
+029B : 53 0F		"S "		anl	a,#00FH
+029D : 69		"i"		add	a,r1
+029E : 76 A3		"v "		jf1	L02A3
+02A0 : A3		" "		movp	a,@a
+02A1 : 44 A4		"D "		jmp	L02A4
+				;
+02A3				L02A3:
+02A3 : E3		" "		movp3	a,@a
+02A4				L02A4:
+02A4 : 2E		"."		xch	a,r6
+02A5 : 92 CC		"  "		jb4	L02CC
+02A7				L02A7:
+02A7 : D2 E0		"  "		jb6	L02E0
+02A9				L02A9:
+02A9 : 2E		"."		xch	a,r6
+02AA : AF		" "		mov	r7,a
+02AB : 53 F8		"S "		anl	a,#0F8H
+02AD : 77		"w"		rr	a
+02AE : 77		"w"		rr	a
+02AF : 77		"w"		rr	a
+02B0 : B9 60		" `"		mov	r1,#060H
+02B2 : 69		"i"		add	a,r1
+02B3 : A9		" "		mov	r1,a
+02B4 : F1		" "		mov	a,@r1
+02B5 : 2F		"/"		xch	a,r7
+02B6 : A9		" "		mov	r1,a
+02B7 : 53 07		"S "		anl	a,#007H
+02B9 : 17		" "		inc	a
+02BA : AD		" "		mov	r5,a
+02BB : FF		" "		mov	a,r7
+02BC				L02BC:
+02BC : F7		" "		rlc	a
+02BD : ED BC		"  "		djnz	r5,L02BC
+02BF : F9		" "		mov	a,r1
+02C0 : AD		" "		mov	r5,a
+02C1 : B9 2A		" *"		mov	r1,#02AH
+02C3 : F6 C8		"  "		jc	L02C8
+02C5 : B1 00		"  "		mov	@r1,#000H
+02C7 : 83		" "		ret
+				;
+02C8				L02C8:
+02C8 : B1 01		"  "		mov	@r1,#001H
+02CA : 83		" "		ret
+				;
+02CB : FF		" "		mov	a,r7
+02CC				L02CC:
+02CC : 2E		"."		xch	a,r6
+02CD : AF		" "		mov	r7,a
+02CE : 03 9F		"  "		add	a,#09FH
+02D0 : E6 DC		"  "		jnc	L02DC
+02D2 : 03 E6		"  "		add	a,#0E6H
+02D4 : F6 DC		"  "		jc	L02DC
+02D6 : FF		" "		mov	a,r7
+02D7 : 53 DF		"S "		anl	a,#0DFH
+02D9 : 44 DD		"D "		jmp	L02DD
+				;
+02DB : 43 FF		"C "		orl	a,#0FFH
+02DD				L02DD:
+02DD : 2E		"."		xch	a,r6
+02DE : 44 A7		"D "		jmp	L02A7
+				;
+02E0				L02E0:
+02E0 : 2E		"."		xch	a,r6
+02E1 : AF		" "		mov	r7,a
+02E2 : 53 C0		"S "		anl	a,#0C0H
+02E4 : D3 40		" @"		xrl	a,#040H
+02E6 : 96 ED		"  "		jnz	L02ED
+02E8 : FF		" "		mov	a,r7
+02E9 : 53 1F		"S "		anl	a,#01FH
+02EB : 44 EE		"D "		jmp	L02EE
+				;
+02ED				L02ED:
+02ED : FF		" "		mov	a,r7
+02EE				L02EE:
+02EE : 2E		"."		xch	a,r6
+02EF : 44 A9		"D "		jmp	L02A9
+				;
+02F1				L02F1:
+02F1 : FB		" "		mov	a,r3
+02F2 : A3		" "		movp	a,@a
+02F3 : DA		" "		xrl	a,r2
+02F4 : AA		" "		mov	r2,a
+02F5 : EB F1		"  "		djnz	r3,L02F1
+02F7 : 84 A5		"  "		jmp	L04A5
+				;
+02F9 : FF		" "		mov	a,r7
+02FA : FF		" "		mov	a,r7
+02FB : FF		" "		mov	a,r7
+02FC : FF		" "		mov	a,r7
+02FD : FF		" "		mov	a,r7
+02FE : FF		" "		mov	a,r7
+02FF : FF		" "		mov	a,r7
+				;
+0300				UNSHIFTED:
+0300 : D0 F0 91 92	"    "		db	"\xD0\xF0\x91\x92\x89zq\xC1\xD22axw\xC3\xC5r d6g\xC6tv\xD7\xD1\xC01sce\xC2\xD3\xD43f4\xD55\xD6\xC4\xC7yb7h\xD88j\x8Ep\xCB.\xDC\xCA\xDB[\xC8unk9\xD9im'\x8A=\xDD`\xCC\x8B/,o\xC9;0\xDA-l\x90\xCD\x8F\xDE\{\xCE\xDF\x95\xF8\xB7\x96\xB1\x99\xB2\x00\xCF\x93\x7F\x00\xFB\x88\x8D\x8C\x98\xB9\xB3\x9A\xAE\xAC\xFD\xF4\x94\xF6\xB0\xB4\x97\xB5\xFA\xB8\xB6\x00\xAD\xF2\x00\x00\x00\x00"
+       89 7A 71 C1	" zq "
+       D2 32 61 78	" 2ax"
+       77 C3 C5 72	"w  r"
+       20 64 36 67	" d6g"
+       C6 74 76 D7	" tv "
+       D1 C0 31 73	"  1s"
+       63 65 C2 D3	"ce  "
+       D4 33 66 34	" 3f4"
+       D5 35 D6 C4	" 5  "
+       C7 79 62 37	" yb7"
+       68 D8 38 6A	"h 8j"
+       8E 70 CB 2E	" p ."
+       DC CA DB 5B	"   ["
+       C8 75 6E 6B	" unk"
+       39 D9 69 6D	"9 im"
+       27 8A 3D DD	"' = "
+       60 CC 8B 2F	"`  /"
+       2C 6F C9 3B	",o ;"
+       30 DA 2D 6C	"0 -l"
+       90 CD 8F DE	"    "
+       5C 7B CE DF	"\{  "
+       95 F8 B7 96	"    "
+       B1 99 B2 00	"    "
+       CF 93 7F 00	"    "
+       FB 88 8D 8C	"    "
+       98 B9 B3 9A	"    "
+       AE AC FD F4	"    "
+       94 F6 B0 B4	"    "
+       97 B5 FA B8	"    "
+       B6 00 AD F2	"    "
+       00 00 00 00	"    "
+0380				INIT60:
+0380 : FF		" "		db	0FFH
+0381 : FF		" "		db	0FFH
+0382 : FF		" "		db	0FFH
+0383 : FF		" "		db	0FFH
+0384 : FF		" "		db	0FFH
+0385 : FF		" "		db	0FFH
+0386 : FF		" "		db	0FFH
+0387 : FF		" "		db	0FFH
+0388 : FF		" "		db	0FFH
+0389 : FF		" "		db	0FFH
+038A : FF		" "		db	0FFH
+038B : FF		" "		db	0FFH
+038C : FF		" "		db	0FFH
+038D : FF		" "		db	0FFH
+038E : FF		" "		db	0FFH
+038F : FF		" "		db	0FFH
+0390 : F9		" "		db	0F9H
+0391 : F9		" "		db	0F9H
+0392 : CF		" "		db	0CFH
+0393 : 1F		" "		db	01FH
+0394 : CF		" "		db	0CFH
+0395 : 1F		" "		db	01FH
+0396 : FF		" "		db	0FFH
+0397 : C0		" "		db	0C0H
+0398 : 00		" "		db	000H
+0399 : 00		" "		db	000H
+039A : 00		" "		db	000H
+039B : 00		" "		db	000H
+039C : 00		" "		db	000H
+039D : 00		" "		db	000H
+039E : 03		" "		db	003H
+039F : 20		" "		db	020H
+03A0				DAT3A0:
+03A0 : 0B		" "		db	00BH
+03A1 : 7F		" "		db	07FH
+03A2 : 0C		" "		db	00CH
+03A3 : F7		" "		db	0F7H
+03A4 : 0F		" "		db	00FH
+03A5 : 0D		" "		db	00DH
+03A6 : 80		" "		db	080H
+03A7 : FF		" "		db	0FFH
+03A8 : FF		" "		db	0FFH
+				;
+03A9 : FF		" "		mov	a,r7
+03AA : FF		" "		mov	a,r7
+03AB : FF		" "		mov	a,r7
+03AC : FF		" "		mov	a,r7
+03AD : FF		" "		mov	a,r7
+03AE : FF		" "		mov	a,r7
+03AF : FF		" "		mov	a,r7
+03B0 : FF		" "		mov	a,r7
+03B1 : FF		" "		mov	a,r7
+03B2 : FF		" "		mov	a,r7
+03B3 : FF		" "		mov	a,r7
+03B4 : FF		" "		mov	a,r7
+03B5 : FF		" "		mov	a,r7
+03B6 : FF		" "		mov	a,r7
+03B7 : FF		" "		mov	a,r7
+03B8 : FF		" "		mov	a,r7
+03B9 : FF		" "		mov	a,r7
+03BA : FF		" "		mov	a,r7
+03BB : FF		" "		mov	a,r7
+03BC : FF		" "		mov	a,r7
+03BD : FF		" "		mov	a,r7
+03BE : FF		" "		mov	a,r7
+03BF : FF		" "		mov	a,r7
+03C0 : FF		" "		mov	a,r7
+03C1 : FF		" "		mov	a,r7
+03C2 : FF		" "		mov	a,r7
+03C3 : FF		" "		mov	a,r7
+03C4 : FF		" "		mov	a,r7
+03C5 : FF		" "		mov	a,r7
+03C6 : FF		" "		mov	a,r7
+03C7 : FF		" "		mov	a,r7
+03C8 : FF		" "		mov	a,r7
+03C9 : FF		" "		mov	a,r7
+03CA : FF		" "		mov	a,r7
+03CB : FF		" "		mov	a,r7
+03CC : FF		" "		mov	a,r7
+03CD : FF		" "		mov	a,r7
+03CE : FF		" "		mov	a,r7
+03CF : FF		" "		mov	a,r7
+03D0 : FF		" "		mov	a,r7
+03D1 : FF		" "		mov	a,r7
+03D2 : FF		" "		mov	a,r7
+03D3 : FF		" "		mov	a,r7
+03D4 : FF		" "		mov	a,r7
+03D5 : FF		" "		mov	a,r7
+03D6 : FF		" "		mov	a,r7
+03D7 : FF		" "		mov	a,r7
+03D8 : FF		" "		mov	a,r7
+03D9 : FF		" "		mov	a,r7
+03DA : FF		" "		mov	a,r7
+03DB : FF		" "		mov	a,r7
+03DC : FF		" "		mov	a,r7
+03DD : FF		" "		mov	a,r7
+03DE : FF		" "		mov	a,r7
+03DF : FF		" "		mov	a,r7
+03E0 : FF		" "		mov	a,r7
+03E1 : FF		" "		mov	a,r7
+03E2 : FF		" "		mov	a,r7
+03E3 : FF		" "		mov	a,r7
+03E4 : FF		" "		mov	a,r7
+03E5 : FF		" "		mov	a,r7
+03E6 : FF		" "		mov	a,r7
+03E7 : FF		" "		mov	a,r7
+03E8 : FF		" "		mov	a,r7
+03E9 : FF		" "		mov	a,r7
+03EA : FF		" "		mov	a,r7
+03EB : FF		" "		mov	a,r7
+03EC : FF		" "		mov	a,r7
+03ED : FF		" "		mov	a,r7
+03EE : FF		" "		mov	a,r7
+03EF : FF		" "		mov	a,r7
+03F0 : FF		" "		mov	a,r7
+03F1 : FF		" "		mov	a,r7
+03F2 : FF		" "		mov	a,r7
+03F3 : FF		" "		mov	a,r7
+03F4 : FF		" "		mov	a,r7
+03F5 : FF		" "		mov	a,r7
+03F6 : FF		" "		mov	a,r7
+03F7 : FF		" "		mov	a,r7
+03F8 : FF		" "		mov	a,r7
+03F9 : FF		" "		mov	a,r7
+03FA : FF		" "		mov	a,r7
+03FB : FF		" "		mov	a,r7
+03FC : FF		" "		mov	a,r7
+03FD : FF		" "		mov	a,r7
+03FE : FF		" "		mov	a,r7
+03FF : FF		" "		mov	a,r7
+0400 : B9 35		" 5"		mov	r1,#035H
+0402 : 94 10		"  "		call	L0410
+0404 : 25		"%"		en	tcnti
+0405 : B9 2A		" *"		mov	r1,#02AH
+0407 : F1		" "		mov	a,@r1
+0408 : C6 0E		"  "		jz	L040E
+040A : FE		" "		mov	a,r6
+040B : 43 01		"C "		orl	a,#001H
+040D : AE		" "		mov	r6,a
+040E				L040E:
+040E : 83		" "		ret
+				;
+040F : 96		" "		db	096H
+				;
+0410				L0410:
+0410 : B6 15		"  "		jf0	CLICK
+0412 : 84 19		"  "		jmp	L0419
+				;
+0414 : E8		" "		db	0E8H
+				;
+0415				CLICK:
+0415 : 9A BF		"  "		anl	p2,#0BFH
+0417 : 8A 40		" @"		orl	p2,#040H
+0419				L0419:
+0419 : B9 5F		" _"		mov	r1,#05FH
+041B : B1 00		"  "		mov	@r1,#000H
+041D : FE		" "		mov	a,r6
+041E				BYTEOUT:
+041E : BF 08		"  "		mov	r7,#008H
+0420 : 9A 7F		"  "		anl	p2,#07FH
+0422 : 00		" "		nop
+0423 : 00		" "		nop
+0424 : 00		" "		nop
+0425 : 00		" "		nop
+0426				L0426:
+0426 : 00		" "		nop
+0427 : B9 0E		"  "		mov	r1,#00EH
+0429				L0429:
+0429 : E9 29		" )"		djnz	r1,L0429
+042B : 67		"g"		rrc	a
+042C : F6 32		" 2"		jc	L0432
+042E : 9A 7F		"  "		anl	p2,#07FH
+0430 : 84 36		" 6"		jmp	L0436
+				;
+0432				L0432:
+0432 : 8A 80		"  "		orl	p2,#080H
+0434 : 00		" "		nop
+0435 : 00		" "		nop
+0436				L0436:
+0436 : EF 26		" &"		djnz	r7,L0426
+0438 : B9 10		"  "		mov	r1,#010H
+043A				L043A:
+043A : E9 3A		" :"		djnz	r1,L043A
+043C : 8A 80		"  "		orl	p2,#080H
+043E : B9 13		"  "		mov	r1,#013H
+0440				L0440:
+0440 : E9 40		" @"		djnz	r1,L0440
+0442 : B9 0C		"  "		mov	r1,#00CH
+0444				L0444:
+0444 : E9 44		" D"		djnz	r1,L0444
+0446 : B9 5F		" _"		mov	r1,#05FH
+0448 : F1		" "		mov	a,@r1
+0449 : 96 51		" Q"		jnz	L0451
+044B : B1 01		"  "		mov	@r1,#001H
+044D : FD		" "		mov	a,r5
+044E : 84 1E		"  "		jmp	BYTEOUT
+				;
+0450 : 9A FD		"  "		anl	p2,#0FDH
+0452 : B6 56		" V"		jf0	L0456
+0454 : 84 58		" X"		jmp	L0458
+				;
+0456				L0456:
+0456 : 9A BF		"  "		anl	p2,#0BFH
+0458				L0458:
+0458 : 83		" "		ret
+				;
+0459				TIMINT:
+0459 : 16 5B		" ["		jtf	L045B
+045B				L045B:
+045B : D5		" "		sel	rb1
+045C : AA		" "		mov	r2,a
+045D : 23 89		"# "		mov	a,#089H
+045F : 62		"b"		mov	t,a
+0460 : 55		"U"		strt	t
+0461 : B9 28		" ("		mov	r1,#028H
+0463 : B8 27		" '"		mov	r0,#027H
+0465 : F0		" "		mov	a,@r0
+0466 : C6 73		" s"		jz	L0473
+0468 : 07		" "		dec	a
+0469 : A0		" "		mov	@r0,a
+046A : 96 7A		" z"		jnz	L047A
+046C : F1		" "		mov	a,@r1
+046D : 96 7A		" z"		jnz	L047A
+046F : 9A BF		"  "		anl	p2,#0BFH
+0471 : 84 7A		" z"		jmp	L047A
+				;
+0473				L0473:
+0473 : F1		" "		mov	a,@r1
+0474 : C6 7A		" z"		jz	L047A
+0476 : 07		" "		dec	a
+0477 : A1		" "		mov	@r1,a
+0478 : B0 FF		"  "		mov	@r0,#0FFH
+047A				L047A:
+047A : B8 29		" )"		mov	r0,#029H
+047C : F0		" "		mov	a,@r0
+047D : C6 A3		"  "		jz	L04A3
+047F : B8 23		" #"		mov	r0,#023H
+0481 : F0		" "		mov	a,@r0
+0482 : 96 A1		"  "		jnz	L04A1
+0484 : B9 24		" $"		mov	r1,#024H
+0486 : F1		" "		mov	a,@r1
+0487 : 96 9A		"  "		jnz	L049A
+0489 : B1 00		"  "		mov	@r1,#000H
+048B : B0 05		"  "		mov	@r0,#005H
+048D : B8 22		" ""		mov	r0,#022H
+048F : F0		" "		mov	a,@r0
+0490 : AE		" "		mov	r6,a
+0491 : B8 21		" !"		mov	r0,#021H
+0493 : F0		" "		mov	a,@r0
+0494 : AD		" "		mov	r5,a
+0495 : 94 10		"  "		call	L0410
+0497 : 84 A3		"  "		jmp	L04A3
+0499 : 84 B0		"  "		jmp	L04B0
+				;
+049B : FF		" "		mov	a,r7
+049C : 07		" "		dec	a
+049D : A1		" "		mov	@r1,a
+049E : 84 A3		"  "		jmp	L04A3
+				;
+04A0 : B8 07		"  "		mov	r0,#007H
+04A2 : A0		" "		mov	@r0,a
+04A3				L04A3:
+04A3 : FA		" "		mov	a,r2
+04A4 : 93		" "		retr
+				;
+04A5				L04A5:
+04A5 : FB		" "		mov	a,r3
+04A6 : A3		" "		movp	a,@a
+04A7 : DA		" "		xrl	a,r2
+04A8 : AA		" "		mov	r2,a
+04A9 : EB A5		"  "		djnz	r3,L04A5
+04AB : A4 76		" v"		jmp	L0576
+				;
+04AD : FF		" "		mov	a,r7
+04AE : FF		" "		mov	a,r7
+04AF : FF		" "		mov	a,r7
+04B0				L04B0:
+04B0 : FF		" "		mov	a,r7
+04B1 : FF		" "		mov	a,r7
+04B2 : FF		" "		mov	a,r7
+04B3 : FF		" "		mov	a,r7
+04B4 : FF		" "		mov	a,r7
+04B5 : FF		" "		mov	a,r7
+04B6 : FF		" "		mov	a,r7
+04B7 : FF		" "		mov	a,r7
+04B8 : FF		" "		mov	a,r7
+04B9 : FF		" "		mov	a,r7
+04BA : FF		" "		mov	a,r7
+04BB : FF		" "		mov	a,r7
+04BC : FF		" "		mov	a,r7
+04BD : FF		" "		mov	a,r7
+04BE : FF		" "		mov	a,r7
+04BF : FF		" "		mov	a,r7
+04C0 : FF		" "		mov	a,r7
+04C1 : FF		" "		mov	a,r7
+04C2 : FF		" "		mov	a,r7
+04C3 : FF		" "		mov	a,r7
+04C4 : FF		" "		mov	a,r7
+04C5 : FF		" "		mov	a,r7
+04C6 : FF		" "		mov	a,r7
+04C7 : FF		" "		mov	a,r7
+04C8 : FF		" "		mov	a,r7
+04C9 : FF		" "		mov	a,r7
+04CA : FF		" "		mov	a,r7
+04CB : FF		" "		mov	a,r7
+04CC : FF		" "		mov	a,r7
+04CD : FF		" "		mov	a,r7
+04CE : FF		" "		mov	a,r7
+04CF : FF		" "		mov	a,r7
+04D0 : FF		" "		mov	a,r7
+04D1 : FF		" "		mov	a,r7
+04D2 : FF		" "		mov	a,r7
+04D3 : FF		" "		mov	a,r7
+04D4 : FF		" "		mov	a,r7
+04D5 : FF		" "		mov	a,r7
+04D6 : FF		" "		mov	a,r7
+04D7 : FF		" "		mov	a,r7
+04D8 : FF		" "		mov	a,r7
+04D9 : FF		" "		mov	a,r7
+04DA : FF		" "		mov	a,r7
+04DB : FF		" "		mov	a,r7
+04DC : FF		" "		mov	a,r7
+04DD : FF		" "		mov	a,r7
+04DE : FF		" "		mov	a,r7
+04DF : FF		" "		mov	a,r7
+04E0 : FF		" "		mov	a,r7
+04E1 : FF		" "		mov	a,r7
+04E2 : FF		" "		mov	a,r7
+04E3 : FF		" "		mov	a,r7
+04E4 : FF		" "		mov	a,r7
+04E5 : FF		" "		mov	a,r7
+04E6 : FF		" "		mov	a,r7
+04E7 : FF		" "		mov	a,r7
+04E8 : FF		" "		mov	a,r7
+04E9 : FF		" "		mov	a,r7
+04EA : FF		" "		mov	a,r7
+04EB : FF		" "		mov	a,r7
+04EC : FF		" "		mov	a,r7
+04ED : FF		" "		mov	a,r7
+04EE : FF		" "		mov	a,r7
+04EF : FF		" "		mov	a,r7
+04F0 : FF		" "		mov	a,r7
+04F1 : FF		" "		mov	a,r7
+04F2 : FF		" "		mov	a,r7
+04F3 : FF		" "		mov	a,r7
+04F4 : FF		" "		mov	a,r7
+04F5 : FF		" "		mov	a,r7
+04F6 : FF		" "		mov	a,r7
+04F7 : FF		" "		mov	a,r7
+04F8 : FF		" "		mov	a,r7
+04F9 : FF		" "		mov	a,r7
+04FA : FF		" "		mov	a,r7
+04FB : FF		" "		mov	a,r7
+04FC : FF		" "		mov	a,r7
+04FD : FF		" "		mov	a,r7
+04FE : FF		" "		mov	a,r7
+04FF : FF		" "		mov	a,r7
+				;
+0500 : B8		" "		db	0B8H
+				;
+0501				EXTINT:
+0501 : 15		" "		dis	i
+0502 : 35		"5"		dis	tcnti
+0503 : D5		" "		sel	rb1
+0504 : AA		" "		mov	r2,a
+0505 : 27		"'"		clr	a
+0506 : BB 08		"  "		mov	r3,#008H
+0508 : BC 0A		"  "		mov	r4,#00AH
+050A				L050A:
+050A : 00		" "		nop
+050B : EC 0A		"  "		djnz	r4,L050A
+050D : 15		" "		dis	i
+050E				NEXTBITIN:
+050E : 97		" "		clr	c
+050F : 86 14		"  "		jni	L0514
+0511 : A7		" "		cpl	c
+0512 : A4 17		"  "		jmp	L0517
+				;
+0514				L0514:
+0514 : 00		" "		nop
+0515 : 00		" "		nop
+0516 : 00		" "		nop
+0517				L0517:
+0517 : 67		"g"		rrc	a
+0518 : 00		" "		nop
+0519 : BD 0D		"  "		mov	r5,#00DH
+051B				L051B:
+051B : ED 1B		"  "		djnz	r5,L051B
+051D : 00		" "		nop
+051E : EB 0E		"  "		djnz	r3,NEXTBITIN
+0520 : 76 61		"va"		jf1	CMDARG
+0522 : AF		" "		mov	r7,a
+0523 : D3 05		"  "		xrl	a,#005H
+0525 : C6 5B		" ["		jz	CMDIN5
+0527 : FF		" "		mov	a,r7
+0528 : D3 01		"  "		xrl	a,#001H
+052A : C6 3F		" ?"		jz	CMDIN1
+052C : FF		" "		mov	a,r7
+052D : D3 02		"  "		xrl	a,#002H
+052F : C6 43		" C"		jz	CMDIN2
+0531 : FF		" "		mov	a,r7
+0532 : D3 03		"  "		xrl	a,#003H
+0534 : C6 49		" I"		jz	CMDIN3
+0536 : FF		" "		mov	a,r7
+0537 : 53 8F		"S "		anl	a,#08FH
+0539 : D3 04		"  "		xrl	a,#004H
+053B : C6 4F		" O"		jz	CMDINX4
+053D : A4 63		" c"		jmp	RETCMD
+				;
+053F				CMDIN1:
+053F : B4 69		" i"		call	RESETAUDIOCOUNTER
+0541 : A4 63		" c"		jmp	RETCMD
+				;
+0543				CMDIN2:
+0543 : B9 5E		" ^"		mov	r1,#05EH
+0545 : B1 00		"  "		mov	@r1,#000H
+0547 : A4 63		" c"		jmp	RETCMD
+				;
+0549				CMDIN3:
+0549 : B9 5E		" ^"		mov	r1,#05EH
+054B : B1 01		"  "		mov	@r1,#001H
+054D : A4 63		" c"		jmp	RETCMD
+				;
+054F				CMDINX4:
+054F : 0A		" "		in	a,p2
+0550 : 53 F8		"S "		anl	a,#0F8H
+0552 : A8		" "		mov	r0,a
+0553 : FF		" "		mov	a,r7
+0554 : 53 70		"Sp"		anl	a,#070H
+0556 : 47		"G"		swap	a
+0557 : 48		"H"		orl	a,r0
+0558 : 3A		":"		outl	p2,a
+0559 : A4 63		" c"		jmp	RETCMD
+				;
+055B				CMDIN5:
+055B : A5		" "		clr	f1
+055C : B5		" "		cpl	f1
+055D : B8 60		" `"		mov	r0,#060H
+055F : A4 63		" c"		jmp	RETCMD
+				;
+0561				CMDARG:
+0561 : A0		" "		mov	@r0,a
+0562 : 18		" "		inc	r0
+0563				RETCMD:
+0563 : B9 2A		" *"		mov	r1,#02AH
+0565 : B1 01		"  "		mov	@r1,#001H
+0567 : FA		" "		mov	a,r2
+0568 : 93		" "		retr
+				;
+0569				RESETAUDIOCOUNTER:
+0569 : B9 27		" '"		mov	r1,#027H
+056B : B1 19		"  "		mov	@r1,#019H
+056D : B9 28		" ("		mov	r1,#028H
+056F : B1 00		"  "		mov	@r1,#000H
+0571 : 9A BF		"  "		anl	p2,#0BFH
+0573 : 8A 40		" @"		orl	p2,#040H
+0575 : 83		" "		ret
+				;
+0576				L0576:
+0576 : FB		" "		mov	a,r3
+0577 : A3		" "		movp	a,@a
+0578 : DA		" "		xrl	a,r2
+0579 : AA		" "		mov	r2,a
+057A : EB 76		" v"		djnz	r3,L0576
+057C : C4 78		" x"		jmp	L0678
+				;
+057E : FF		" "		mov	a,r7
+057F : FF		" "		mov	a,r7
+0580 : FF		" "		mov	a,r7
+0581 : FF		" "		mov	a,r7
+0582 : FF		" "		mov	a,r7
+0583 : FF		" "		mov	a,r7
+0584 : FF		" "		mov	a,r7
+0585 : FF		" "		mov	a,r7
+0586 : FF		" "		mov	a,r7
+0587 : FF		" "		mov	a,r7
+0588 : FF		" "		mov	a,r7
+0589 : FF		" "		mov	a,r7
+058A : FF		" "		mov	a,r7
+058B : FF		" "		mov	a,r7
+058C : FF		" "		mov	a,r7
+058D : FF		" "		mov	a,r7
+058E : FF		" "		mov	a,r7
+058F : FF		" "		mov	a,r7
+0590 : FF		" "		mov	a,r7
+0591 : FF		" "		mov	a,r7
+0592 : FF		" "		mov	a,r7
+0593 : FF		" "		mov	a,r7
+0594 : FF		" "		mov	a,r7
+0595 : FF		" "		mov	a,r7
+0596 : FF		" "		mov	a,r7
+0597 : FF		" "		mov	a,r7
+0598 : FF		" "		mov	a,r7
+0599 : FF		" "		mov	a,r7
+059A : FF		" "		mov	a,r7
+059B : FF		" "		mov	a,r7
+059C : FF		" "		mov	a,r7
+059D : FF		" "		mov	a,r7
+059E : FF		" "		mov	a,r7
+059F : FF		" "		mov	a,r7
+05A0 : FF		" "		mov	a,r7
+05A1 : FF		" "		mov	a,r7
+05A2 : FF		" "		mov	a,r7
+05A3 : FF		" "		mov	a,r7
+05A4 : FF		" "		mov	a,r7
+05A5 : FF		" "		mov	a,r7
+05A6 : FF		" "		mov	a,r7
+05A7 : FF		" "		mov	a,r7
+05A8 : FF		" "		mov	a,r7
+05A9 : FF		" "		mov	a,r7
+05AA : FF		" "		mov	a,r7
+05AB : FF		" "		mov	a,r7
+05AC : FF		" "		mov	a,r7
+05AD : FF		" "		mov	a,r7
+05AE : FF		" "		mov	a,r7
+05AF : FF		" "		mov	a,r7
+05B0 : FF		" "		mov	a,r7
+05B1 : FF		" "		mov	a,r7
+05B2 : FF		" "		mov	a,r7
+05B3 : FF		" "		mov	a,r7
+05B4 : FF		" "		mov	a,r7
+05B5 : FF		" "		mov	a,r7
+05B6 : FF		" "		mov	a,r7
+05B7 : FF		" "		mov	a,r7
+05B8 : FF		" "		mov	a,r7
+05B9 : FF		" "		mov	a,r7
+05BA : FF		" "		mov	a,r7
+05BB : FF		" "		mov	a,r7
+05BC : FF		" "		mov	a,r7
+05BD : FF		" "		mov	a,r7
+05BE : FF		" "		mov	a,r7
+05BF : FF		" "		mov	a,r7
+05C0 : FF		" "		mov	a,r7
+05C1 : FF		" "		mov	a,r7
+05C2 : FF		" "		mov	a,r7
+05C3 : FF		" "		mov	a,r7
+05C4 : FF		" "		mov	a,r7
+05C5 : FF		" "		mov	a,r7
+05C6 : FF		" "		mov	a,r7
+05C7 : FF		" "		mov	a,r7
+05C8 : FF		" "		mov	a,r7
+05C9 : FF		" "		mov	a,r7
+05CA : FF		" "		mov	a,r7
+05CB : FF		" "		mov	a,r7
+05CC : FF		" "		mov	a,r7
+05CD : FF		" "		mov	a,r7
+05CE : FF		" "		mov	a,r7
+05CF : FF		" "		mov	a,r7
+05D0 : FF		" "		mov	a,r7
+05D1 : FF		" "		mov	a,r7
+05D2 : FF		" "		mov	a,r7
+05D3 : FF		" "		mov	a,r7
+05D4 : FF		" "		mov	a,r7
+05D5 : FF		" "		mov	a,r7
+05D6 : FF		" "		mov	a,r7
+05D7 : FF		" "		mov	a,r7
+05D8 : FF		" "		mov	a,r7
+05D9 : FF		" "		mov	a,r7
+05DA : FF		" "		mov	a,r7
+05DB : FF		" "		mov	a,r7
+05DC : FF		" "		mov	a,r7
+05DD : FF		" "		mov	a,r7
+05DE : FF		" "		mov	a,r7
+05DF : FF		" "		mov	a,r7
+05E0 : FF		" "		mov	a,r7
+05E1 : FF		" "		mov	a,r7
+05E2 : FF		" "		mov	a,r7
+05E3 : FF		" "		mov	a,r7
+05E4 : FF		" "		mov	a,r7
+05E5 : FF		" "		mov	a,r7
+05E6 : FF		" "		mov	a,r7
+05E7 : FF		" "		mov	a,r7
+05E8 : FF		" "		mov	a,r7
+05E9 : FF		" "		mov	a,r7
+05EA : FF		" "		mov	a,r7
+05EB : FF		" "		mov	a,r7
+05EC : FF		" "		mov	a,r7
+05ED : FF		" "		mov	a,r7
+05EE : FF		" "		mov	a,r7
+05EF : FF		" "		mov	a,r7
+05F0 : FF		" "		mov	a,r7
+05F1 : FF		" "		mov	a,r7
+05F2 : FF		" "		mov	a,r7
+05F3 : FF		" "		mov	a,r7
+05F4 : FF		" "		mov	a,r7
+05F5 : FF		" "		mov	a,r7
+05F6 : FF		" "		mov	a,r7
+05F7 : FF		" "		mov	a,r7
+05F8 : FF		" "		mov	a,r7
+05F9 : FF		" "		mov	a,r7
+05FA : FF		" "		mov	a,r7
+05FB : FF		" "		mov	a,r7
+05FC : FF		" "		mov	a,r7
+05FD : FF		" "		mov	a,r7
+05FE : FF		" "		mov	a,r7
+05FF : FF		" "		mov	a,r7
+0600				L0600:
+0600 : 35		"5"		dis	tcnti
+0601 : A5		" "		clr	f1
+0602 : BA 20		"  "		mov	r2,#020H
+0604 : B8 2A		" *"		mov	r0,#02AH
+0606 : B0 00		"  "		mov	@r0,#000H
+0608 : B8 25		" %"		mov	r0,#025H
+060A : B0 00		"  "		mov	@r0,#000H
+060C : B8 26		" &"		mov	r0,#026H
+060E : B0 07		"  "		mov	@r0,#007H
+0610 : B8 5E		" ^"		mov	r0,#05EH
+0612 : B0 01		"  "		mov	@r0,#001H
+0614 : B6 18		"  "		jf0	L0618
+0616 : B0 00		"  "		mov	@r0,#000H
+0618				L0618:
+0618 : B8 25		" %"		mov	r0,#025H
+061A : F0		" "		mov	a,@r0
+061B : C6 36		" 6"		jz	L0636
+061D : 07		" "		dec	a
+061E : A0		" "		mov	@r0,a
+061F				L061F:
+061F : 86 18		"  "		jni	L0618
+0621 : 05		" "		en	i
+0622				L0622:
+0622 : B8 2A		" *"		mov	r0,#02AH
+0624 : F0		" "		mov	a,@r0
+0625 : C6 22		" ""		jz	L0622
+0627 : B0 00		"  "		mov	@r0,#000H
+0629 : 76 43		"vC"		jf1	L0643
+062B				MAYBECLICK:
+062B : B8 5E		" ^"		mov	r0,#05EH
+062D : F0		" "		mov	a,@r0
+062E : 85		" "		clr	f0
+062F : C6 32		" 2"		jz	L0632
+0631 : 95		" "		cpl	f0
+0632				L0632:
+0632 : 15		" "		dis	i
+0633 : 25		"%"		en	tcnti
+0634 : 04 33		" 3"		jmp	L0033
+				;
+0636				L0636:
+0636 : B8 26		" &"		mov	r0,#026H
+0638 : F0		" "		mov	a,@r0
+0639 : C6 32		" 2"		jz	L0632
+063B : 07		" "		dec	a
+063C : A0		" "		mov	@r0,a
+063D : B8 25		" %"		mov	r0,#025H
+063F : B0 FF		"  "		mov	@r0,#0FFH
+0641 : C4 1F		"  "		jmp	L061F
+				;
+0643				L0643:
+0643 : 05		" "		en	i
+0644 : B9 26		" &"		mov	r1,#026H
+0646 : B1 01		"  "		mov	@r1,#001H
+0648 : B9 25		" %"		mov	r1,#025H
+064A : B1 38		" 8"		mov	@r1,#038H
+064C				L064C:
+064C : F0		" "		mov	a,@r0
+064D : 96 65		" e"		jnz	L0665
+064F : B9 25		" %"		mov	r1,#025H
+0651 : F1		" "		mov	a,@r1
+0652 : C6 58		" X"		jz	L0658
+0654 : 07		" "		dec	a
+0655 : A1		" "		mov	@r1,a
+0656 : C4 4C		" L"		jmp	L064C
+				;
+0658				L0658:
+0658 : B9 26		" &"		mov	r1,#026H
+065A : F1		" "		mov	a,@r1
+065B : C6 69		" i"		jz	L0669
+065D : 07		" "		dec	a
+065E : A1		" "		mov	@r1,a
+065F : B9 25		" %"		mov	r1,#025H
+0661 : B1 FF		"  "		mov	@r1,#0FFH
+0663 : C4 4C		" L"		jmp	L064C
+				;
+0665				L0665:
+0665 : B0 00		"  "		mov	@r0,#000H
+0667 : EA 43		" C"		djnz	r2,L0643
+0669				L0669:
+0669 : B8 3C		" <"		mov	r0,#03CH
+066B : BA 11		"  "		mov	r2,#011H
+066D				L066D:
+066D : B0 00		"  "		mov	@r0,#000H
+066F : 18		" "		inc	r0
+0670 : EA 6D		" m"		djnz	r2,L066D
+0672 : B8 29		" )"		mov	r0,#029H
+0674 : B0 00		"  "		mov	@r0,#000H
+0676 : C4 32		" 2"		jmp	L0632
+				;
+0678				L0678:
+0678 : FB		" "		mov	a,r3
+0679 : A3		" "		movp	a,@a
+067A : DA		" "		xrl	a,r2
+067B : AA		" "		mov	r2,a
+067C : EB 78		" x"		djnz	r3,L0678
+067E : E4 00		"  "		jmp	L0700
+				;
+0680 : FF		" "		mov	a,r7
+0681 : FF		" "		mov	a,r7
+0682 : FF		" "		mov	a,r7
+0683 : FF		" "		mov	a,r7
+0684 : FF		" "		mov	a,r7
+0685 : FF		" "		mov	a,r7
+0686 : FF		" "		mov	a,r7
+0687 : FF		" "		mov	a,r7
+0688 : FF		" "		mov	a,r7
+0689 : FF		" "		mov	a,r7
+068A : FF		" "		mov	a,r7
+068B : FF		" "		mov	a,r7
+068C : FF		" "		mov	a,r7
+068D : FF		" "		mov	a,r7
+068E : FF		" "		mov	a,r7
+068F : FF		" "		mov	a,r7
+0690 : FF		" "		mov	a,r7
+0691 : FF		" "		mov	a,r7
+0692 : FF		" "		mov	a,r7
+0693 : FF		" "		mov	a,r7
+0694 : FF		" "		mov	a,r7
+0695 : FF		" "		mov	a,r7
+0696 : FF		" "		mov	a,r7
+0697 : FF		" "		mov	a,r7
+0698 : FF		" "		mov	a,r7
+0699 : FF		" "		mov	a,r7
+069A : FF		" "		mov	a,r7
+069B : FF		" "		mov	a,r7
+069C : FF		" "		mov	a,r7
+069D : FF		" "		mov	a,r7
+069E : FF		" "		mov	a,r7
+069F : FF		" "		mov	a,r7
+06A0 : FF		" "		mov	a,r7
+06A1 : FF		" "		mov	a,r7
+06A2 : FF		" "		mov	a,r7
+06A3 : FF		" "		mov	a,r7
+06A4 : FF		" "		mov	a,r7
+06A5 : FF		" "		mov	a,r7
+06A6 : FF		" "		mov	a,r7
+06A7 : FF		" "		mov	a,r7
+06A8 : FF		" "		mov	a,r7
+06A9 : FF		" "		mov	a,r7
+06AA : FF		" "		mov	a,r7
+06AB : FF		" "		mov	a,r7
+06AC : FF		" "		mov	a,r7
+06AD : FF		" "		mov	a,r7
+06AE : FF		" "		mov	a,r7
+06AF : FF		" "		mov	a,r7
+06B0 : FF		" "		mov	a,r7
+06B1 : FF		" "		mov	a,r7
+06B2 : FF		" "		mov	a,r7
+06B3 : FF		" "		mov	a,r7
+06B4 : FF		" "		mov	a,r7
+06B5 : FF		" "		mov	a,r7
+06B6 : FF		" "		mov	a,r7
+06B7 : FF		" "		mov	a,r7
+06B8 : FF		" "		mov	a,r7
+06B9 : FF		" "		mov	a,r7
+06BA : FF		" "		mov	a,r7
+06BB : FF		" "		mov	a,r7
+06BC : FF		" "		mov	a,r7
+06BD : FF		" "		mov	a,r7
+06BE : FF		" "		mov	a,r7
+06BF : FF		" "		mov	a,r7
+06C0 : FF		" "		mov	a,r7
+06C1 : FF		" "		mov	a,r7
+06C2 : FF		" "		mov	a,r7
+06C3 : FF		" "		mov	a,r7
+06C4 : FF		" "		mov	a,r7
+06C5 : FF		" "		mov	a,r7
+06C6 : FF		" "		mov	a,r7
+06C7 : FF		" "		mov	a,r7
+06C8 : FF		" "		mov	a,r7
+06C9 : FF		" "		mov	a,r7
+06CA : FF		" "		mov	a,r7
+06CB : FF		" "		mov	a,r7
+06CC : FF		" "		mov	a,r7
+06CD : FF		" "		mov	a,r7
+06CE : FF		" "		mov	a,r7
+06CF : FF		" "		mov	a,r7
+06D0 : FF		" "		mov	a,r7
+06D1 : FF		" "		mov	a,r7
+06D2 : FF		" "		mov	a,r7
+06D3 : FF		" "		mov	a,r7
+06D4 : FF		" "		mov	a,r7
+06D5 : FF		" "		mov	a,r7
+06D6 : FF		" "		mov	a,r7
+06D7 : FF		" "		mov	a,r7
+06D8 : FF		" "		mov	a,r7
+06D9 : FF		" "		mov	a,r7
+06DA : FF		" "		mov	a,r7
+06DB : FF		" "		mov	a,r7
+06DC : FF		" "		mov	a,r7
+06DD : FF		" "		mov	a,r7
+06DE : FF		" "		mov	a,r7
+06DF : FF		" "		mov	a,r7
+06E0 : FF		" "		mov	a,r7
+06E1 : FF		" "		mov	a,r7
+06E2 : FF		" "		mov	a,r7
+06E3 : FF		" "		mov	a,r7
+06E4 : FF		" "		mov	a,r7
+06E5 : FF		" "		mov	a,r7
+06E6 : FF		" "		mov	a,r7
+06E7 : FF		" "		mov	a,r7
+06E8 : FF		" "		mov	a,r7
+06E9 : FF		" "		mov	a,r7
+06EA : FF		" "		mov	a,r7
+06EB : FF		" "		mov	a,r7
+06EC : FF		" "		mov	a,r7
+06ED : FF		" "		mov	a,r7
+06EE : FF		" "		mov	a,r7
+06EF : FF		" "		mov	a,r7
+06F0 : FF		" "		mov	a,r7
+06F1 : FF		" "		mov	a,r7
+06F2 : FF		" "		mov	a,r7
+06F3 : FF		" "		mov	a,r7
+06F4 : FF		" "		mov	a,r7
+06F5 : FF		" "		mov	a,r7
+06F6 : FF		" "		mov	a,r7
+06F7 : FF		" "		mov	a,r7
+06F8 : FF		" "		mov	a,r7
+06F9 : FF		" "		mov	a,r7
+06FA : FF		" "		mov	a,r7
+06FB : FF		" "		mov	a,r7
+06FC : FF		" "		mov	a,r7
+06FD : FF		" "		mov	a,r7
+06FE : FF		" "		mov	a,r7
+06FF : FF		" "		mov	a,r7
+0700				L0700:
+0700 : FB		" "		mov	a,r3
+0701 : A3		" "		movp	a,@a
+0702 : DA		" "		xrl	a,r2
+0703 : AA		" "		mov	r2,a
+0704 : EB 00		"  "		djnz	r3,L0700
+0706 : C6 0A		"  "		jz	L070A
+0708 : E4 28		" ("		jmp	L0728
+				;
+070A				L070A:
+070A : B8 05		"  "		mov	r0,#005H
+070C : B9 7B		" {"		mov	r1,#07BH
+070E : 23 00		"# "		mov	a,#000H
+0710				L0710:
+0710 : A0		" "		mov	@r0,a
+0711 : 03 57		" W"		add	a,#057H
+0713 : 18		" "		inc	r0
+0714 : E9 10		"  "		djnz	r1,L0710
+0716 : B9 7B		" {"		mov	r1,#07BH
+0718 : B8 05		"  "		mov	r0,#005H
+071A : 23 00		"# "		mov	a,#000H
+071C				L071C:
+071C : AA		" "		mov	r2,a
+071D : D0		" "		xrl	a,@r0
+071E : 96 28		" ("		jnz	L0728
+0720 : 18		" "		inc	r0
+0721 : FA		" "		mov	a,r2
+0722 : 03 57		" W"		add	a,#057H
+0724 : E9 1C		"  "		djnz	r1,L071C
+0726 : 04 0C		"  "		jmp	L000C
+				;
+0728				L0728:
+0728 : 9A BF		"  "		anl	p2,#0BFH
+072A : 8A 40		" @"		orl	p2,#040H
+072C : BD FF		"  "		mov	r5,#0FFH
+072E : BE FF		"  "		mov	r6,#0FFH
+0730 : 94 10		"  "		call	L0410
+0732 : E4 28		" ("		jmp	L0728
+				;
+0734 : FF		" "		mov	a,r7
+0735 : FF		" "		mov	a,r7
+0736 : FF		" "		mov	a,r7
+0737 : FF		" "		mov	a,r7
+0738 : FF		" "		mov	a,r7
+0739 : FF		" "		mov	a,r7
+073A : FF		" "		mov	a,r7
+073B : FF		" "		mov	a,r7
+073C : FF		" "		mov	a,r7
+073D : FF		" "		mov	a,r7
+073E : FF		" "		mov	a,r7
+073F : FF		" "		mov	a,r7
+0740 : FF		" "		mov	a,r7
+0741 : FF		" "		mov	a,r7
+0742 : FF		" "		mov	a,r7
+0743 : FF		" "		mov	a,r7
+0744 : FF		" "		mov	a,r7
+0745 : FF		" "		mov	a,r7
+0746 : FF		" "		mov	a,r7
+0747 : FF		" "		mov	a,r7
+0748 : FF		" "		mov	a,r7
+0749 : FF		" "		mov	a,r7
+074A : FF		" "		mov	a,r7
+074B : FF		" "		mov	a,r7
+074C : FF		" "		mov	a,r7
+074D : FF		" "		mov	a,r7
+074E : FF		" "		mov	a,r7
+074F : FF		" "		mov	a,r7
+0750 : FF		" "		mov	a,r7
+0751 : FF		" "		mov	a,r7
+0752 : FF		" "		mov	a,r7
+0753 : FF		" "		mov	a,r7
+0754 : FF		" "		mov	a,r7
+0755 : FF		" "		mov	a,r7
+0756 : FF		" "		mov	a,r7
+0757 : FF		" "		mov	a,r7
+0758 : FF		" "		mov	a,r7
+0759 : FF		" "		mov	a,r7
+075A : FF		" "		mov	a,r7
+075B : FF		" "		mov	a,r7
+075C : FF		" "		mov	a,r7
+075D : FF		" "		mov	a,r7
+075E : FF		" "		mov	a,r7
+075F : FF		" "		mov	a,r7
+0760 : FF		" "		mov	a,r7
+0761 : FF		" "		mov	a,r7
+0762 : FF		" "		mov	a,r7
+0763 : FF		" "		mov	a,r7
+0764 : FF		" "		mov	a,r7
+0765 : FF		" "		mov	a,r7
+0766 : FF		" "		mov	a,r7
+0767 : FF		" "		mov	a,r7
+0768 : FF		" "		mov	a,r7
+0769 : FF		" "		mov	a,r7
+076A : FF		" "		mov	a,r7
+076B : FF		" "		mov	a,r7
+076C : FF		" "		mov	a,r7
+076D : FF		" "		mov	a,r7
+076E : FF		" "		mov	a,r7
+076F : FF		" "		mov	a,r7
+0770 : FF		" "		mov	a,r7
+0771 : FF		" "		mov	a,r7
+0772 : FF		" "		mov	a,r7
+0773 : FF		" "		mov	a,r7
+0774 : FF		" "		mov	a,r7
+0775 : FF		" "		mov	a,r7
+0776 : FF		" "		mov	a,r7
+0777 : FF		" "		mov	a,r7
+0778 : FF		" "		mov	a,r7
+0779 : FF		" "		mov	a,r7
+077A : FF		" "		mov	a,r7
+077B : FF		" "		mov	a,r7
+077C : FF		" "		mov	a,r7
+077D : FF		" "		mov	a,r7
+077E : FF		" "		mov	a,r7
+077F : FF		" "		mov	a,r7
+0780 : FF		" "		mov	a,r7
+0781 : FF		" "		mov	a,r7
+0782 : FF		" "		mov	a,r7
+0783 : FF		" "		mov	a,r7
+0784 : FF		" "		mov	a,r7
+0785 : FF		" "		mov	a,r7
+0786 : FF		" "		mov	a,r7
+0787 : FF		" "		mov	a,r7
+0788 : FF		" "		mov	a,r7
+0789 : FF		" "		mov	a,r7
+078A : FF		" "		mov	a,r7
+078B : FF		" "		mov	a,r7
+078C : FF		" "		mov	a,r7
+078D : FF		" "		mov	a,r7
+078E : FF		" "		mov	a,r7
+078F : FF		" "		mov	a,r7
+0790 : FF		" "		mov	a,r7
+0791 : FF		" "		mov	a,r7
+0792 : FF		" "		mov	a,r7
+0793 : FF		" "		mov	a,r7
+0794 : FF		" "		mov	a,r7
+0795 : FF		" "		mov	a,r7
+0796 : FF		" "		mov	a,r7
+0797 : FF		" "		mov	a,r7
+0798 : FF		" "		mov	a,r7
+0799 : FF		" "		mov	a,r7
+079A : FF		" "		mov	a,r7
+079B : FF		" "		mov	a,r7
+079C : FF		" "		mov	a,r7
+079D : FF		" "		mov	a,r7
+079E : FF		" "		mov	a,r7
+079F : FF		" "		mov	a,r7
+07A0 : FF		" "		mov	a,r7
+07A1 : FF		" "		mov	a,r7
+07A2 : FF		" "		mov	a,r7
+07A3 : FF		" "		mov	a,r7
+07A4 : FF		" "		mov	a,r7
+07A5 : FF		" "		mov	a,r7
+07A6 : FF		" "		mov	a,r7
+07A7 : FF		" "		mov	a,r7
+07A8 : FF		" "		mov	a,r7
+07A9 : FF		" "		mov	a,r7
+07AA : FF		" "		mov	a,r7
+07AB : FF		" "		mov	a,r7
+07AC : FF		" "		mov	a,r7
+07AD : FF		" "		mov	a,r7
+07AE : FF		" "		mov	a,r7
+07AF : FF		" "		mov	a,r7
+07B0 : FF		" "		mov	a,r7
+07B1 : FF		" "		mov	a,r7
+07B2 : FF		" "		mov	a,r7
+07B3 : FF		" "		mov	a,r7
+07B4 : FF		" "		mov	a,r7
+07B5 : FF		" "		mov	a,r7
+07B6 : FF		" "		mov	a,r7
+07B7 : FF		" "		mov	a,r7
+07B8 : FF		" "		mov	a,r7
+07B9 : FF		" "		mov	a,r7
+07BA : FF		" "		mov	a,r7
+07BB : FF		" "		mov	a,r7
+07BC : FF		" "		mov	a,r7
+07BD : FF		" "		mov	a,r7
+07BE : FF		" "		mov	a,r7
+07BF : FF		" "		mov	a,r7
+07C0 : FF		" "		mov	a,r7
+07C1 : FF		" "		mov	a,r7
+07C2 : FF		" "		mov	a,r7
+07C3 : FF		" "		mov	a,r7
+07C4 : FF		" "		mov	a,r7
+07C5 : FF		" "		mov	a,r7
+07C6 : FF		" "		mov	a,r7
+07C7 : FF		" "		mov	a,r7
+07C8 : FF		" "		mov	a,r7
+07C9 : FF		" "		mov	a,r7
+07CA : FF		" "		mov	a,r7
+07CB : FF		" "		mov	a,r7
+07CC : FF		" "		mov	a,r7
+07CD : FF		" "		mov	a,r7
+07CE : FF		" "		mov	a,r7
+07CF : FF		" "		mov	a,r7
+07D0 : FF		" "		mov	a,r7
+07D1 : FF		" "		mov	a,r7
+07D2 : FF		" "		mov	a,r7
+07D3 : FF		" "		mov	a,r7
+07D4 : FF		" "		mov	a,r7
+07D5 : FF		" "		mov	a,r7
+07D6 : FF		" "		mov	a,r7
+07D7 : FF		" "		mov	a,r7
+07D8 : FF		" "		mov	a,r7
+07D9 : FF		" "		mov	a,r7
+07DA : FF		" "		mov	a,r7
+07DB : FF		" "		mov	a,r7
+07DC : FF		" "		mov	a,r7
+07DD : FF		" "		mov	a,r7
+07DE : FF		" "		mov	a,r7
+07DF : FF		" "		mov	a,r7
+07E0 : FF		" "		mov	a,r7
+07E1 : FF		" "		mov	a,r7
+07E2 : FF		" "		mov	a,r7
+07E3 : FF		" "		mov	a,r7
+07E4 : FF		" "		mov	a,r7
+07E5 : FF		" "		mov	a,r7
+07E6 : FF		" "		mov	a,r7
+07E7 : FF		" "		mov	a,r7
+07E8 : FF		" "		mov	a,r7
+07E9 : FF		" "		mov	a,r7
+07EA : FF		" "		mov	a,r7
+07EB : FF		" "		mov	a,r7
+07EC : FF		" "		mov	a,r7
+07ED : FF		" "		mov	a,r7
+07EE : FF		" "		mov	a,r7
+07EF : FF		" "		mov	a,r7
+07F0 : FF		" "		mov	a,r7
+07F1 : FF		" "		mov	a,r7
+07F2 : FF		" "		mov	a,r7
+07F3 : FF		" "		mov	a,r7
+07F4 : FF		" "		mov	a,r7
+07F5 : FF		" "		mov	a,r7
+07F6 : FF		" "		mov	a,r7
+07F7 : FF		" "		mov	a,r7
+07F8 : FF		" "		mov	a,r7
+07F9 : FF		" "		mov	a,r7
+07FA : FF		" "		mov	a,r7
+07FB : FF		" "		mov	a,r7
+07FC : FF		" "		mov	a,r7
+07FD : FF		" "		mov	a,r7
+07FE : FF		" "		mov	a,r7
+				;
+07FF : E9		" "		db	0E9H
+
+;--------------------------------------------------------------
+Symbol table
+============
+
+Value		Type	Name
+-----		----	----
+0009		Code	RSTINT
+000C		Code	L000C
+0013		Code	L0013
+0020		Code	L0020
+0023		Code	L0023
+0033		Code	L0033
+0037		Code	L0037
+0040		Code	L0040
+0047		Code	L0047
+0051		Code	L0051
+0061		Code	L0061
+0067		Code	L0067
+0072		Code	GETSHIFTS
+0079		Code	L0079
+007B		Code	L007B
+0083		Code	L0083
+008B		Code	NOTT0
+0090		Code	NOTT1
+0094		Code	L0094
+009A		Code	L009A
+00A7		Code	L00A7
+00B4		Code	L00B4
+00B8		Code	L00B8
+00BC		Code	L00BC
+00BF		Code	L00BF
+00C6		Code	L00C6
+00D3		Code	RSTINT1
+00DA		Code	L00DA
+0104		Code	L0104
+0114		Code	L0114
+0117		Code	L0117
+011A		Code	L011A
+012C		Code	L012C
+0136		Code	L0136
+0145		Code	L0145
+0155		Code	L0155
+0167		Code	L0167
+016B		Code	L016B
+016F		Code	L016F
+0171		Code	L0171
+0180		Code	L0180
+018B		Code	L018B
+01A0		Code	L01A0
+01A4		Code	L01A4
+01B4		Code	L01B4
+01B9		Code	L01B9
+01BA		Code	L01BA
+01C8		Code	L01C8
+01D1		Code	L01D1
+01D3		Code	L01D3
+01D9		Code	L01D9
+0200		Data	SHIFTED
+0282		Code	L0282
+028A		Code	L028A
+0295		Code	L0295
+029A		Code	GETMAPPING
+02A3		Code	L02A3
+02A4		Code	L02A4
+02A7		Code	L02A7
+02A9		Code	L02A9
+02BC		Code	L02BC
+02C8		Code	L02C8
+02CC		Code	L02CC
+02DC		Code	L02DC
+02DD		Code	L02DD
+02E0		Code	L02E0
+02ED		Code	L02ED
+02EE		Code	L02EE
+02F1		Code	L02F1
+0300		Data	UNSHIFTED
+0380		Data	INIT60
+03A0		Data	DAT3A0
+0401		Code	L0401
+040E		Code	L040E
+0410		Code	L0410
+0415		Code	CLICK
+0419		Code	L0419
+041E		Code	BYTEOUT
+0426		Code	L0426
+0429		Code	L0429
+0432		Code	L0432
+0436		Code	L0436
+043A		Code	L043A
+0440		Code	L0440
+0444		Code	L0444
+0451		Code	L0451
+0456		Code	L0456
+0458		Code	L0458
+0459		Code	TIMINT
+045B		Code	L045B
+0473		Code	L0473
+047A		Code	L047A
+049A		Code	L049A
+04A1		Code	L04A1
+04A3		Code	L04A3
+04A5		Code	L04A5
+04B0		Code	L04B0
+0501		Code	EXTINT
+050A		Code	L050A
+050E		Code	NEXTBITIN
+0514		Code	L0514
+0517		Code	L0517
+051B		Code	L051B
+053F		Code	CMDIN1
+0543		Code	CMDIN2
+0549		Code	CMDIN3
+054F		Code	CMDINX4
+055B		Code	CMDIN5
+0561		Code	CMDARG
+0563		Code	RETCMD
+0569		Code	RESETAUDIOCOUNTER
+0576		Code	L0576
+0600		Code	L0600
+0618		Code	L0618
+061F		Code	L061F
+0622		Code	L0622
+062B		Code	MAYBECLICK
+0632		Code	L0632
+0636		Code	L0636
+0643		Code	L0643
+064C		Code	L064C
+0658		Code	L0658
+0665		Code	L0665
+0669		Code	L0669
+066D		Code	L066D
+0678		Code	L0678
+0700		Code	L0700
+070A		Code	L070A
+0710		Code	L0710
+071C		Code	L071C
+0728		Code	L0728
+
+Number of symbols:			131
+
+;--------------------------------------------------------------
