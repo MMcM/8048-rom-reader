@@ -1,0 +1,24 @@
+cpu 8048
+
+code 0 RSTVEC
+code 3 EXTVEC
+code 7 TIMVEC
+code 0x009 EXTINT
+code 0x190 TIMINT
+code 0x200 RSTINT
+
+code 0x171 FIND_MATCH
+code 0x175 FIND_MATCH_LOOP
+code 0x187 FIND_MATCH_FOUND
+byte 0x18a MATCHES 6
+
+code 0x234 SCAN_LOOP
+code 0x24B SCAN_DELAY
+code 0x26F MOD_0_ON
+code 0x275 MOD_1_ON
+
+skip 0x002 1
+skip 0x005 2
+skip 0x0FA 6
+skip 0x1A7 0x59
+skip 0x3F3 0x0d
